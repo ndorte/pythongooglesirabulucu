@@ -11,6 +11,10 @@ keywords = {"example.com":["keyword 1", "keyword 2", "keyword 3"],
         "example1.com":["keyword 1", "keyword 2", "keyword 3"],
         "example2.com":["keyword 1", "keyword 2", "keyword 3"]}
 
+for site in keywords:
+    for keyword in keywords[site]:
+        Find(keyword, site)
+
 def Find(keyword, site):
     with open("user_agents.txt", "r") as agents:
         agent = random.choice(agents.readlines())
@@ -23,7 +27,7 @@ def Find(keyword, site):
     driver.set_window_size(1366, 768)
     url = ("https://www.google.com.tr/search?gl=&num=100&nfpr=1")
     driver.get(url)
-    waitClick = random.randint(2, 5)
+    waitClick = random.randint(1, 3)
     sleep(waitClick)
     search = driver.find_element_by_name('q')
     search.send_keys(keyword)
@@ -32,14 +36,10 @@ def Find(keyword, site):
     count = 1
     for i in findKeyword:
         if site in i.text:
-            print(site + " > " +keyword + " kelimesinde " + str(say) + ". sırada.")
+            print(site + " > " +keyword + " keyword found:  " + str(say) + ".")
             #driver.save_screenshot(keyword+".png") # if you take screenshot, erase #
         else:
             count += 1
     waitTime = random.randint(25, 35) #second
     sleep(waitTime)
     driver.quit()
-
-for site in keywords:
-    for keyword in liste[site]:
-        Find(keyword, site)
